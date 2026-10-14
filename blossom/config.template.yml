@@ -1,0 +1,63 @@
+# Blossom server (hzrd149/blossom-server 6.4.1) for bean'd.
+# TEMPLATE: scripts/render-config.sh turns this into blossom/config.yml and
+# inserts the pubkeys from policy/pubkeys.txt at "__PUBKEYS__".
+# Key names checked against config.example.yml of the upstream repo.
+
+port: 3000
+host: 0.0.0.0
+
+database:
+  path: data/sqlite.db
+
+storage:
+  backend: local
+  local:
+    dir: ./data/blobs
+  # Blobs belong to your own devices; never clean them up automatically.
+  removeWhenNoOwners: false
+  # Single rule: any file type (the app uploads encrypted bytes), only from
+  # the allowed pubkeys, practically no expiry.
+  rules:
+    - type: "*"
+      expiration: 100 years
+      pubkeys:
+__PUBKEYS__
+
+upload:
+  enabled: true
+  requireAuth: true
+  # 25 MB per file: bean photos and shot curves are much smaller.
+  maxSize: 26214400
+  workers: 1
+  maxJobsPerWorker: 4
+  throughputWindowMs: 1000
+  # Only pubkeys listed in a rule may upload.
+  requirePubkeyInRule: true
+
+mirror:
+  enabled: false
+  requireAuth: true
+
+delete:
+  requireAuth: true
+
+list:
+  enabled: true
+  requireAuth: true
+  allowListOthers: false
+
+media:
+  enabled: false
+  requireAuth: true
+  requirePubkeyInRule: true
+
+prune:
+  initialDelayMs: 60000
+  intervalMs: 3600000
+  batchSize: 1000
+
+landing:
+  enabled: false
+
+report:
+  enabled: false

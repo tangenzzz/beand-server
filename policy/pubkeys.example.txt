@@ -1,0 +1,4 @@
+# Allowed pubkeys (hex, 64 characters), one per line.
+# Copy to policy/pubkeys.txt (not in the repo). PUBLIC keys only!
+# Then: ./scripts/render-config.sh && docker compose up -d
+0000000000000000000000000000000000000000000000000000000000000000

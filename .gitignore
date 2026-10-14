@@ -1,0 +1,6 @@
+# Runtime data and local settings; never commit them
+data/
+.env
+policy/pubkeys.txt
+blossom/config.yml
+backups/

@@ -1,0 +1,5 @@
+# Allowed event kinds (one number per line). Changes apply immediately.
+# 30078 = NIP-78 app data (bean'd sync, parameterized replaceable)
+30078
+# 5 = NIP-09 deletion requests
+5

@@ -1,0 +1,29 @@
+#cloud-config
+# First boot of Raspberry Pi OS Lite (Trixie) on the Pi 4's SSD.
+# cloud-init reads this file from the boot partition (bootfs/user-data).
+# Public keys only here; never a private one.
+
+hostname: beand
+manage_etc_hosts: true
+timezone: Etc/UTC  # change to your time zone
+
+keyboard:
+  model: pc105
+  layout: us  # change to your keyboard layout
+
+users:
+  - name: beand
+    gecos: bean'd server
+    groups: [adm, sudo, video, plugdev, users]
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: true
+    ssh_authorized_keys:
+      # Replace with your own public key (e.g. ~/.ssh/id_ed25519.pub).
+      - ssh-ed25519 AAAA...your-public-key... you@your-computer
+
+# Keys only, no password login over SSH.
+ssh_pwauth: false
+
+runcmd:
+  - [systemctl, enable, --now, ssh]
